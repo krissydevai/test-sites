@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Game Nerdz — Trading Card Games, Board Games & More</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --brand:#00a3e0;
+    --brand-hover:#0090c7;
+    --dark:#343740;
+    --text:#333;
+    --ink:#111418;
+    --muted:#6b7280;
+    --border:#e3e6ea;
+    --tile:#f4f6f8;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  body{font-family:'Inter',Arial,Helvetica,sans-serif;font-weight:400;line-height:1.5;color:var(--text);background:#fff;font-size:16px;}
+  a{color:inherit;text-decoration:none;}
+  img{display:block;max-width:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px;}
+
+  /* ---------- Utility header ---------- */
+  .topbar{padding:18px 0;}
+  .topbar .row{display:flex;align-items:center;gap:28px;}
+  .logo{display:flex;align-items:center;gap:6px;font-weight:800;font-size:26px;letter-spacing:-.02em;flex-shrink:0;}
+  .logo .game{color:#1c1f26;}
+  .logo .nerdz{color:var(--brand);}
+  .logo svg{width:40px;height:40px;margin:0 -2px;}
+  .search{flex:1;display:flex;max-width:560px;}
+  .search input{flex:1;border:1px solid var(--border);background:#f1f3f5;border-right:none;border-radius:6px 0 0 6px;padding:13px 16px;font-size:15px;color:#333;outline:none;}
+  .search input::placeholder{color:#9aa1ab;}
+  .search button{background:var(--brand);border:none;border-radius:0 6px 6px 0;padding:0 18px;cursor:pointer;color:#fff;display:flex;align-items:center;transition:background .2s ease;}
+  .search button:hover{background:var(--brand-hover);}
+  .search button svg{width:20px;height:20px;}
+  .util{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:14px;font-weight:700;font-size:14px;color:var(--ink);}
+  .util .top{display:flex;align-items:center;gap:26px;}
+  .util .bot{display:flex;align-items:center;gap:18px;}
+  .util .pill{display:flex;align-items:center;gap:8px;}
+  .util .pill svg{width:17px;height:17px;color:var(--brand);}
+  .util a:hover{color:var(--brand);}
+  .util .lc{font-weight:400;color:var(--muted);}
+  .cart svg{width:26px;height:26px;color:var(--ink);}
+
+  /* ---------- Category nav ---------- */
+  nav.cats{background:var(--dark);}
+  nav.cats .wrap{padding-top:0;padding-bottom:0;}
+  .cats-row{display:flex;justify-content:center;flex-wrap:wrap;}
+  .cats-row a{color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:13px 16px;transition:color .15s ease,background .15s ease;}
+  .cats-row a:hover{color:var(--brand);background:rgba(255,255,255,.04);}
+  .cats-row.r2{border-top:1px solid rgba(255,255,255,.08);}
+  .cats-row.r2 a{padding:11px 16px;font-size:12px;color:#cfd2d8;}
+
+  /* ---------- Hero banner ---------- */
+  .hero{margin:22px 0;}
+  .banner{position:relative;height:300px;border-radius:8px;overflow:hidden;display:flex;align-items:center;
+    background:
+      radial-gradient(900px 400px at 80% 20%, rgba(255,0,128,.55), transparent 60%),
+      radial-gradient(700px 500px at 95% 90%, rgba(255,196,0,.5), transparent 55%),
+      radial-gradient(800px 600px at 60% 50%, rgba(0,163,224,.45), transparent 60%),
+      linear-gradient(120deg,#3a1d6e 0%,#1b3b8f 45%,#0f7bbf 100%);}
+  .banner::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,12,30,.72) 0%,rgba(10,12,30,.25) 45%,transparent 70%);}
+  .banner .copy{position:relative;z-index:2;padding:0 56px;color:#fff;max-width:640px;}
+  .banner .kick{font-size:14px;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:#ffd23f;margin-bottom:10px;}
+  .banner h1{font-size:62px;line-height:.95;font-weight:800;letter-spacing:-.02em;text-shadow:0 4px 24px rgba(0,0,0,.4);}
+  .banner .sub{margin-top:8px;font-size:34px;font-weight:800;font-style:italic;color:#ffd23f;text-shadow:0 3px 14px rgba(0,0,0,.45);transform:rotate(-3deg);transform-origin:left;}
+  .banner .shop{display:inline-block;margin-top:22px;background:#fff;color:var(--ink);font-weight:700;font-size:14px;padding:13px 28px;border-radius:6px;transition:transform .15s ease,box-shadow .15s ease;}
+  .banner .shop:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.3);}
+
+  /* ---------- Feature badges ---------- */
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding:26px 0;border-bottom:1px solid var(--border);}
+  .feature{display:flex;align-items:center;justify-content:center;gap:12px;font-weight:600;font-size:15px;color:var(--ink);}
+  .feature svg{width:26px;height:26px;color:var(--ink);flex-shrink:0;}
+
+  /* ---------- Reviews ---------- */
+  .reviews{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 0;border-bottom:1px solid var(--border);font-weight:600;color:var(--ink);font-size:15px;}
+  .stars{display:inline-flex;gap:2px;color:#ffb400;}
+  .stars svg{width:18px;height:18px;}
+
+  /* ---------- Promo tiles ---------- */
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:30px 0;}
+  .tile{position:relative;background:var(--tile);border-radius:10px;padding:26px 28px;display:flex;align-items:center;gap:18px;overflow:hidden;min-height:140px;}
+  .tile .ttext h3{font-size:22px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+  .tile .ttext p{font-size:14px;color:var(--muted);max-width:180px;}
+  .tile .covers{margin-left:auto;display:flex;align-items:center;}
+  .tile .covers img{width:62px;height:84px;border-radius:5px;object-fit:cover;box-shadow:0 4px 10px rgba(0,0,0,.18);margin-left:-16px;border:2px solid #fff;}
+  .tile .covers img:first-child{margin-left:0;}
+  .ribbon{position:absolute;top:14px;right:14px;background:var(--brand);color:#fff;font-weight:800;font-size:13px;padding:8px 16px;border-radius:6px;box-shadow:0 6px 14px rgba(0,163,224,.4);}
+
+  /* ---------- Featured products ---------- */
+  .sec-title{text-align:center;font-size:28px;font-weight:600;color:var(--ink);margin:38px 0 30px;}
+  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .card{border:1px solid var(--border);border-radius:8px;background:#fff;display:flex;flex-direction:column;padding:0 0 18px;transition:box-shadow .2s ease,transform .2s ease;}
+  .card:hover{box-shadow:0 12px 28px rgba(20,30,50,.1);transform:translateY(-3px);}
+  .card .thumb{aspect-ratio:1/1;background:#fafbfc;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:center;}
+  .card .thumb img{width:100%;height:100%;object-fit:contain;border-radius:8px 8px 0 0;}
+  .card .body{padding:16px 16px 0;flex:1;display:flex;flex-direction:column;}
+  .card .pricing{display:flex;align-items:baseline;gap:8px;margin-bottom:8px;}
+  .card .price{color:var(--brand);font-weight:800;font-size:19px;}
+  .card .orig{color:#9aa1ab;font-size:14px;text-decoration:line-through;}
+  .card .title{color:var(--ink);font-size:15px;line-height:1.4;font-weight:400;}
+  .btn{display:block;margin:16px 16px 0;background:var(--brand);color:#fff;text-align:center;font-weight:700;font-size:14px;letter-spacing:.03em;padding:13px;border-radius:6px;border:none;cursor:pointer;text-transform:uppercase;transition:background .2s ease;}
+  .btn:hover{background:var(--brand-hover);}
+
+  /* ---------- Footer ---------- */
+  footer{margin-top:60px;border-top:1px solid var(--border);padding:48px 0 28px;}
+  .foot{display:grid;grid-template-columns:1.1fr 1.1fr 1.4fr 1.4fr 1fr;gap:30px;}
+  .foot h4{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:14px;}
+  .foot a,.foot p{display:block;color:var(--muted);font-size:14px;margin-bottom:9px;}
+  .foot a:hover{color:var(--brand);}
+  .foot .strong{font-weight:700;color:var(--ink);}
+  .socials{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px;}
+  .socials a{color:#5b6068;}
+  .socials svg{width:22px;height:22px;}
+  .sub-btn{display:inline-block;background:var(--brand);color:#fff;font-weight:600;font-size:15px;padding:13px 30px;border-radius:6px;margin-top:8px;transition:background .2s ease;}
+  .sub-btn:hover{background:var(--brand-hover);}
+  .ud-badge{width:130px;height:130px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;
+    background:radial-gradient(circle at 50% 40%,#1a3a6b,#0d2347);color:#e7bd3b;font-weight:800;font-size:13px;line-height:1.15;border:3px solid #e7bd3b;box-shadow:0 0 0 4px #0d2347;}
+  .copyright{margin-top:40px;color:#9aa1ab;font-size:13px;}
+
+  @media(max-width:900px){
+    .products,.foot{grid-template-columns:repeat(2,1fr);}
+    .features{grid-template-columns:1fr;gap:14px;}
+    .tiles{grid-template-columns:1fr;}
+    .util{display:none;}
+    .banner h1{font-size:42px;}
+  }
+  @media(max-width:560px){
+    .products{grid-template-columns:1fr;}
+    .foot{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Utility header ===== -->
+<header class="topbar">
+  <div class="wrap row">
+    <a class="logo" href="#">
+      <span class="game">GAME</span>
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <polygon points="28,6 72,6 96,50 72,94 28,94 4,50" fill="none" stroke="#343740" stroke-width="7"/>
+        <text x="30" y="64" font-family="Inter,sans-serif" font-size="42" font-weight="800" fill="#343740">G</text>
+        <text x="52" y="64" font-family="Inter,sans-serif" font-size="42" font-weight="800" fill="#00a3e0">N</text>
+      </svg>
+      <span class="nerdz">NERDZ</span>
+    </a>
+
+    <form class="search" onsubmit="return false">
+      <input type="text" placeholder="Search..." />
+      <button type="submit" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+    </form>
+
+    <div class="util">
+      <div class="top">
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>1-888-75-NERDZ</span>
+        <a href="#">GIFT CARDS</a>
+      </div>
+      <div class="bot">
+        <a href="#">SIGN IN <span class="lc">or</span> REGISTER</a>
+        <a class="cart" href="#" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1.6"/><circle cx="19" cy="21" r="1.6"/><path d="M2.5 3h2l2.2 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L22 7H6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Category nav ===== -->
+<nav class="cats">
+  <div class="wrap">
+    <div class="cats-row r1">
+      <a href="#">Preorders</a>
+      <a href="#">New Releases</a>
+      <a href="#">Trading Card Games</a>
+      <a href="#">Board Games</a>
+      <a href="#">Miniatures</a>
+      <a href="#">Roleplaying</a>
+      <a href="#">Supplies</a>
+    </div>
+    <div class="cats-row r2">
+      <a href="#">Collectibles</a>
+      <a href="#">Deal of the Day</a>
+      <a href="#">More Categories</a>
+      <a href="#">Information</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="banner">
+      <div class="copy">
+        <div class="kick">Pokémon TCG</div>
+        <h1>Chaos Rising</h1>
+        <div class="sub">Available Now!</div>
+        <a class="shop" href="#">Shop the Set →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Feature badges ===== -->
+  <section class="features">
+    <div class="feature">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h13v13H1zM14 8h4l3 3v5h-7z"/><circle cx="6" cy="18.5" r="1.8"/><circle cx="18" cy="18.5" r="1.8"/></svg>
+      Free Shipping at $75
+    </div>
+    <div class="feature">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      Hold Your Orders for Free Shipping
+    </div>
+    <div class="feature">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13M12 8S9 3 6.5 4.5 8 8 12 8zm0 0s3-5 5.5-3.5S16 8 12 8z"/></svg>
+      Earn Rewards on Purchases
+    </div>
+  </section>
+
+  <!-- ===== Reviews ===== -->
+  <section class="reviews">
+    <span class="stars">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+    </span>
+    Rated 4.8/5 on 15,000+ Reviews
+  </section>
+
+  <!-- ===== Promo tiles ===== -->
+  <section class="tiles">
+    <div class="tile">
+      <div class="ttext">
+        <h3>New Releases</h3>
+        <p>Check out our latest lineup.</p>
+      </div>
+      <div class="covers">
+        <img src="https://placehold.co/120x160/f59e0b/fff?text=TCG" alt="" />
+        <img src="https://placehold.co/120x160/2563eb/fff?text=Set" alt="" />
+        <img src="https://placehold.co/120x160/dc2626/fff?text=Box" alt="" />
+      </div>
+    </div>
+    <div class="tile">
+      <span class="ribbon">Game Nerdz Rewards</span>
+      <div class="ttext">
+        <h3>Preorders</h3>
+        <p>Get in early and reserve your next favorites!</p>
+      </div>
+      <div class="covers">
+        <img src="https://placehold.co/120x160/166534/fff?text=RPG" alt="" />
+        <img src="https://placehold.co/120x160/7c3aed/fff?text=CCG" alt="" />
+        <img src="https://placehold.co/120x160/0891b2/fff?text=New" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Featured products ===== -->
+  <h2 class="sec-title">Featured Products</h2>
+  <section class="products" id="products"></section>
+
+</main>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h4>Navigate</h4>
+        <a href="#">Sitemap</a>
+      </div>
+      <div>
+        <h4>Categories</h4>
+        <a href="#">Preorders</a>
+        <a href="#">Deals</a>
+        <a href="#">Board Games</a>
+        <a href="#">Card Games</a>
+        <a href="#">Miniatures</a>
+        <a href="#">Roleplaying</a>
+        <a href="#">Supplies</a>
+        <a href="#">Collectibles</a>
+        <a href="#">More Categories</a>
+      </div>
+      <div>
+        <h4>Info</h4>
+        <p>3110 Shiloh Road, Suite 100<br/>Richardson, TX 75082</p>
+        <p class="strong" style="margin-top:8px;">Call us at 1-888-75-NERDZ</p>
+        <h4 style="margin-top:20px;">Connect With Us!</h4>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V8c0-1 .3-1.7 1.8-1.7H17V2.9C16.5 2.8 15.3 2.7 14 2.7 11.2 2.7 9.3 4.4 9.3 7.5V10H6v4h3.3v8z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5 2.5 2.5 0 0 1 4.98 3.5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21H21v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V21H13z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .6 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.4 12 31 31 0 0 0 23 7.5zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Subscribe to our newsletter</h4>
+        <p>Get the latest updates on new products and upcoming sales</p>
+        <a class="sub-btn" href="#">Subscribe</a>
+      </div>
+      <div style="display:flex;justify-content:flex-end;">
+        <div class="ud-badge">UPPER<br/>DECK<br/><span style="font-size:9px;color:#9fb4d6;">AUTHORIZED RETAILER</span></div>
+      </div>
+    </div>
+    <div class="copyright">© 2026 Game Nerdz</div>
+  </div>
+</footer>
+
+<script>
+  // Featured products data (from the reference)
+  var PRODUCTS = [
+    {p:"$39.97",o:"$59.80",t:"My Little Pony TCG: Nightmare Night - Booster Box (PREORDER)",b:"PREORDER",c:"f472b6"},
+    {p:"$31.47",o:"$38.99",t:"Ultra Pro Deck Box: MTG Final Fantasy - Cloud, Ex-SOLDIER (Alcove Flip) (PREORDER)",b:"PREORDER",c:"6366f1"},
+    {p:"$18.97",o:"$24.99",t:"Compile: Main 3 (PREORDER)",b:"PREORDER",c:"0ea5e9"},
+    {p:"$39.99",o:"",t:"Star Wars: The Mandalorian - Adventures - Sworn to the Creed Expansion (PREORDER)",b:"PREORDER",c:"1f2937"},
+    {p:"$199.99",o:"",t:"Nemesis: Retaliation - Core Box (PREORDER)",b:"PREORDER",c:"7f1d1d"},
+    {p:"$8.97",o:"$9.95",t:"Flip 7: With a Vengeance",b:"ADD TO CART",c:"f59e0b"},
+    {p:"$250.75",o:"$295.00",t:"Warhammer 40K: Armageddon - 11th Edition Box Set (PREORDER)",b:"ADD TO CART",c:"166534"},
+    {p:"$14.97",o:"$20.00",t:"Trick to the Future (PREORDER)",b:"PREORDER",c:"0891b2"},
+    {p:"$44.97",o:"",t:"Weiss Schwarz: Goddess of Victory - Nikke Vol.2 - Booster Box (PREORDER)",b:"PREORDER",c:"db2777"},
+    {p:"$15.97",o:"$19.99",t:"Trivial Pursuit (Refresh) (PREORDER)",b:"PREORDER",c:"9333ea"},
+    {p:"$51.97",o:"$59.99",t:"Fury of Dracula (Fifth Edition) (PREORDER)",b:"PREORDER",c:"3f3f46"},
+    {p:"$24.00",o:"$30.00",t:"Finspan: Sharks & Reefs Expansion (PREORDER)",b:"PREORDER",c:"0d9488"},
+    {p:"$39.99",o:"",t:"Cyberpunk Edgerunners: Hunted w/ Preorder Bonus (PREORDER)",b:"PREORDER",c:"eab308"},
+    {p:"$94.97",o:"$119.99",t:"Azuki TCG: Gate Awakened - Booster Box (PREORDER)",b:"PREORDER",c:"e11d48"},
+    {p:"$47.99",o:"",t:"Marvel Champions LCG: Fear No Evil Expansion (PREORDER)",b:"PREORDER",c:"b91c1c"},
+    {p:"$172.80",o:"$216.00",t:"OverPower CCG: Skybound - Booster Box (PREORDER)",b:"PREORDER",c:"2563eb"},
+    {p:"$134.97",o:"$149.99",t:"Enemies of Gotham City (PREORDER)",b:"PREORDER",c:"111827"},
+    {p:"$74.97",o:"$100.00",t:"Ascension: 15th Anniversary Collector's Edition (PREORDER)",b:"PREORDER",c:"7c3aed"},
+    {p:"$81.00",o:"$90.00",t:"The Old King's Crown (PREORDER)",b:"PREORDER",c:"a16207"},
+    {p:"$31.47",o:"$35.00",t:"Gundam Assemble: Starter Set 01 ST01 (PREORDER)",b:"PREORDER",c:"1d4ed8"}
+  ];
+  var html = PRODUCTS.map(function(x){
+    var label = encodeURIComponent(x.t.split(":")[0].split("(")[0].trim());
+    var orig = x.o ? '<span class="orig">'+x.o+'</span>' : '';
+    return '<article class="card">'+
+      '<div class="thumb"><img src="https://placehold.co/360x360/f4f6f8/aeb6c2?text='+label+'" alt=""/></div>'+
+      '<div class="body"><div class="pricing"><span class="price">'+x.p+'</span>'+orig+'</div>'+
+      '<div class="title">'+x.t+'</div></div>'+
+      '<button class="btn">'+x.b+'</button>'+
+      '</article>';
+  }).join('');
+  document.getElementById('products').innerHTML = html;
+</script>
+</body>
+</html>

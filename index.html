@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Sites</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',Arial,sans-serif;background:#0f1115;color:#e7e9ee;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;}
+  .wrap{max-width:760px;width:100%;}
+  .kick{font-size:13px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:#00a3e0;margin-bottom:14px;}
+  h1{font-size:44px;font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-bottom:12px;}
+  .lead{color:#9aa1ab;font-size:17px;margin-bottom:40px;max-width:520px;line-height:1.6;}
+  .grid{display:grid;gap:16px;}
+  .site{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#171a21;border:1px solid #242832;border-radius:12px;padding:22px 24px;text-decoration:none;color:inherit;transition:border-color .2s ease,transform .2s ease,background .2s ease;}
+  .site:hover{border-color:#00a3e0;transform:translateY(-2px);background:#1b1f28;}
+  .site .meta h2{font-size:20px;font-weight:700;margin-bottom:4px;}
+  .site .meta p{color:#9aa1ab;font-size:14px;}
+  .site .go{flex-shrink:0;display:inline-flex;align-items:center;gap:8px;color:#00a3e0;font-weight:600;font-size:14px;}
+  .site .go svg{width:18px;height:18px;}
+  footer{margin-top:44px;color:#5b6068;font-size:13px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kick">Test Sites</div>
+    <h1>Cloned &amp; demo builds</h1>
+    <p class="lead">A collection of front-end clones and test builds. Click through to view each live.</p>
+
+    <div class="grid">
+      <a class="site" href="./gamenerdz/">
+        <div class="meta">
+          <h2>Game Nerdz</h2>
+          <p>E-commerce storefront clone — trading card &amp; board games</p>
+        </div>
+        <span class="go">View site
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <footer>Built with Claude Code</footer>
+  </div>
+</body>
+</html>

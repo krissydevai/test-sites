@@ -1,0 +1,10 @@
+# Working artifacts — never publish
+temporary screenshots/
+**/temporary screenshots/
+crops/
+**/crops/
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
