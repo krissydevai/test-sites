@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bloom &amp; Co — Modern Hair Studio</title>
+<meta name="description" content="Bloom &amp; Co is a modern hair studio for cuts, color, and confidence. Thoughtful styling that grows with you. Book your seat." />
+
+<!-- Fonts: Instrument Serif (display) + Hanken Grotesk (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   BLOOM & CO — "Soft Power"
+   Warm sophisticated palette · cherry accent · butter highlight
+   ============================================================ */
+
+:root{
+  --cream:#F7F0E7;
+  --oat:#EFE4D5;
+  --oat-deep:#E6D7C3;
+  --espresso:#241710;
+  --mocha:#5C4534;
+  --mocha-soft:#8A6F58;
+  --cherry:#C0392B;
+  --cherry-deep:#9E2A20;
+  --butter:#F1D08A;
+  --butter-soft:#F7E4B6;
+  --line:rgba(36,23,16,.14);
+  --line-soft:rgba(36,23,16,.08);
+
+  --serif:"Instrument Serif", Georgia, serif;
+  --sans:"Hanken Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --maxw:1240px;
+  --ease:cubic-bezier(.22,.7,.2,1);
+  --shadow:0 26px 60px -28px rgba(36,23,16,.45);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+
+body{
+  font-family:var(--sans);
+  background:var(--cream);
+  color:var(--espresso);
+  line-height:1.6;
+  font-weight:400;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+img{display:block;max-width:100%;height:auto;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--cherry);color:var(--cream);}
+
+/* Fine grain overlay for warmth/texture --------------------- */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Typography helpers ---------- */
+.serif{font-family:var(--serif);font-weight:400;line-height:1;}
+.eyebrow{
+  font-size:.74rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cherry);display:inline-flex;align-items:center;gap:.6em;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--cherry);opacity:.6;}
+.section-num{
+  font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--mocha-soft);
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,56px);}
+section{position:relative;}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.6em;
+  font-family:var(--sans);font-weight:600;font-size:.92rem;letter-spacing:.01em;
+  padding:.95em 1.8em;border-radius:100px;cursor:pointer;border:1px solid transparent;
+  transition:transform .4s var(--ease),background .4s var(--ease),color .4s var(--ease),box-shadow .4s var(--ease);
+  white-space:nowrap;
+}
+.btn .arr{transition:transform .4s var(--ease);}
+.btn:hover .arr{transform:translateX(4px);}
+.btn-cherry{background:var(--cherry);color:var(--cream);box-shadow:0 14px 30px -14px rgba(192,57,43,.7);}
+.btn-cherry:hover{background:var(--cherry-deep);transform:translateY(-3px);box-shadow:0 20px 40px -16px rgba(192,57,43,.8);}
+.btn-ghost{background:transparent;color:var(--espresso);border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--espresso);transform:translateY(-3px);}
+.btn-cream{background:var(--cream);color:var(--espresso);}
+.btn-cream:hover{background:#fff;transform:translateY(-3px);}
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:130;
+  transition:background .4s var(--ease),box-shadow .4s var(--ease),padding .4s var(--ease);
+  padding:22px 0;
+}
+.nav.scrolled{
+  background:rgba(247,240,231,.82);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--line-soft);padding:14px 0;
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;}
+.logo{
+  font-family:var(--serif);font-size:1.7rem;line-height:1;letter-spacing:.01em;
+  display:flex;align-items:center;gap:.4em;
+}
+.logo .dot{color:var(--cherry);}
+.nav.menu-open .logo{color:var(--cream);}
+.nav-links{display:flex;align-items:center;gap:38px;}
+.nav-links a{
+  font-size:.9rem;font-weight:500;color:var(--mocha);position:relative;padding:4px 0;
+  transition:color .3s var(--ease);
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--cherry);
+  transition:width .35s var(--ease);
+}
+.nav-links a:hover{color:var(--espresso);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{display:flex;align-items:center;gap:18px;}
+.nav-cta .btn{padding:.7em 1.4em;font-size:.85rem;}
+
+.burger{
+  display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;
+  padding:8px;z-index:120;
+}
+.burger span{width:26px;height:2px;background:var(--espresso);border-radius:2px;transition:transform .4s var(--ease),opacity .3s var(--ease);}
+.burger.open span{background:var(--cream);}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.burger.open span:nth-child(2){opacity:0;}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-menu{
+  position:fixed;inset:0;z-index:110;background:var(--espresso);color:var(--cream);
+  display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 40px;
+  transform:translateY(-100%);transition:transform .55s var(--ease);
+}
+.mobile-menu.open{transform:translateY(0);}
+.mobile-menu a{
+  font-family:var(--serif);font-size:2.6rem;line-height:1.2;color:var(--cream);
+  opacity:.85;transition:opacity .3s,color .3s,transform .3s;
+}
+.mobile-menu a:hover{opacity:1;color:var(--butter);transform:translateX(8px);}
+.mobile-menu .mm-foot{margin-top:36px;font-family:var(--sans);font-size:.9rem;opacity:.6;}
+.mobile-menu .mm-foot a{font-family:var(--sans);font-size:1rem;color:var(--butter);opacity:1;}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;min-height:100svh;display:flex;align-items:center;
+  padding-top:120px;padding-bottom:70px;overflow:hidden;
+}
+.bloom{
+  position:absolute;inset:-25%;z-index:0;pointer-events:none;filter:blur(14px);
+  background:
+    radial-gradient(38% 42% at 22% 32%, rgba(192,57,43,.30), transparent 70%),
+    radial-gradient(34% 40% at 78% 26%, rgba(241,208,138,.55), transparent 72%),
+    radial-gradient(40% 46% at 64% 78%, rgba(192,57,43,.16), transparent 70%),
+    radial-gradient(45% 50% at 32% 82%, rgba(247,228,182,.6), transparent 72%);
+  animation:drift 22s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  0%{transform:translate(0,0) scale(1);}
+  50%{transform:translate(3%,-2%) scale(1.08) rotate(2deg);}
+  100%{transform:translate(-2%,3%) scale(1.04) rotate(-2deg);}
+}
+.hero-grid{
+  position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;
+  gap:clamp(30px,5vw,70px);align-items:center;width:100%;
+}
+.hero h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(3.4rem,8.4vw,7rem);line-height:.94;letter-spacing:-.01em;
+  margin:.32em 0 .35em;
+}
+.hero h1 em{font-style:italic;color:var(--cherry);position:relative;}
+.hero h1 em::after{
+  content:"";position:absolute;left:0;bottom:.08em;width:100%;height:.5em;z-index:-1;
+  background:var(--butter);opacity:.55;border-radius:40% 60% 55% 45%;transform:rotate(-1.5deg);
+}
+.hero-sub{
+  font-size:clamp(1rem,1.4vw,1.18rem);color:var(--mocha);max-width:30ch;margin-bottom:2.1em;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+.hero-rating{
+  margin-top:2.6em;display:flex;align-items:center;gap:14px;font-size:.86rem;color:var(--mocha);
+}
+.hero-rating .stars{color:var(--cherry);letter-spacing:2px;font-size:1rem;}
+.hero-rating strong{color:var(--espresso);font-weight:700;}
+.hero-info{
+  list-style:none;display:flex;flex-wrap:wrap;row-gap:14px;
+  margin-top:2.2em;padding-top:1.5em;border-top:1px solid var(--line);max-width:620px;
+}
+.hero-info .hi{padding:0 18px;border-right:1px solid var(--line);}
+.hero-info .hi:first-child{padding-left:0;}
+.hero-info .hi:last-child{border-right:0;padding-right:0;}
+.hero-info .k{display:block;font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cherry);margin-bottom:4px;}
+.hero-info .v{font-size:.9rem;font-weight:600;color:var(--espresso);}
+
+.hero-visual{position:relative;clip-path:inset(0 100% 0 0);animation:clipIn 1.1s var(--ease) .5s forwards;}
+@keyframes clipIn{to{clip-path:inset(0 0 0 0);}}
+.hero-photo{
+  border-radius:200px 200px 24px 24px;overflow:hidden;aspect-ratio:3/4;
+  box-shadow:var(--shadow);position:relative;z-index:2;
+}
+.hero-photo img{width:100%;height:100%;object-fit:cover;}
+/* ============================================================
+   REVEAL ANIMATION
+   ============================================================ */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .9s var(--ease),transform .9s var(--ease);
+  transition-delay:calc(var(--i,0) * .09s);
+}
+.reveal.in{opacity:1;transform:none;}
+.reveal-clip{
+  clip-path:inset(0 100% 0 0);transition:clip-path 1s var(--ease);
+  transition-delay:calc(var(--i,0) * .09s);
+}
+.reveal-clip.in{clip-path:inset(0 0 0 0);}
+
+/* ============================================================
+   SECTION HEADER (shared)
+   ============================================================ */
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(40px,6vw,72px);}
+.sec-head h2{
+  font-family:var(--serif);font-weight:400;font-size:clamp(2.6rem,5.5vw,4.6rem);
+  line-height:1;letter-spacing:-.01em;max-width:16ch;
+}
+.sec-head h2 em{font-style:italic;color:var(--cherry);}
+.sec-head .lead{max-width:34ch;color:var(--mocha);font-size:1.02rem;}
+
+.pad{padding:clamp(80px,12vw,150px) 0;}
+
+/* ============================================================
+   LOOKBOOK
+   ============================================================ */
+.lookbook{background:var(--oat);}
+.gallery{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:18px;grid-auto-rows:200px;
+}
+.shot{
+  position:relative;overflow:hidden;border-radius:20px;background:var(--oat-deep);
+  cursor:pointer;
+}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease);}
+.shot:hover img{transform:scale(1.06);}
+.shot::before{
+  content:"";position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .5s var(--ease);
+  background:linear-gradient(to top,rgba(36,23,16,.78),transparent 55%);
+}
+.shot:hover::before{opacity:1;}
+.shot-cap{
+  position:absolute;left:0;bottom:0;z-index:2;padding:22px;color:var(--cream);
+  transform:translateY(12px);opacity:0;transition:transform .5s var(--ease),opacity .5s var(--ease);
+}
+.shot:hover .shot-cap{transform:none;opacity:1;}
+.shot-cap .cat{font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--butter);}
+.shot-cap .nm{font-family:var(--serif);font-size:1.6rem;line-height:1.05;margin-top:2px;}
+.shot .tag{
+  position:absolute;top:14px;left:14px;z-index:2;background:rgba(247,240,231,.9);
+  font-size:.66rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 11px;border-radius:100px;transition:opacity .4s;
+}
+.shot:hover .tag{opacity:0;}
+/* Perfectly tiling bento: top-left feature (6x2) + two stacked wide
+   tiles (6x1) beside it, then three equal tall tiles (4x2) across the
+   bottom row. 12 cols x 4 row-units, fully filled, no gaps. */
+.g1{grid-column:span 6;grid-row:span 2;}
+.g2{grid-column:span 6;grid-row:span 1;}
+.g3{grid-column:span 6;grid-row:span 1;}
+.g4{grid-column:span 4;grid-row:span 2;}
+.g5{grid-column:span 4;grid-row:span 2;}
+.g6{grid-column:span 4;grid-row:span 2;}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.services-list{border-top:1px solid var(--line);}
+.srv{
+  display:grid;grid-template-columns:.5fr 2fr 1.4fr auto;gap:30px;align-items:center;
+  padding:30px 0;border-bottom:1px solid var(--line);
+  transition:padding-left .45s var(--ease),background .45s var(--ease);
+}
+.srv:hover{padding-left:24px;}
+.srv .n{font-family:var(--serif);font-size:1.4rem;color:var(--mocha-soft);}
+.srv .t{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.05;transition:color .4s var(--ease);}
+.srv:hover .t{color:var(--cherry);}
+.srv .d{color:var(--mocha);font-size:.96rem;max-width:38ch;}
+.srv .p{font-weight:700;font-size:1.05rem;white-space:nowrap;}
+.srv .p small{font-weight:500;color:var(--mocha-soft);font-size:.78rem;display:block;text-align:right;}
+
+/* ============================================================
+   STYLISTS
+   ============================================================ */
+.stylists{background:var(--espresso);color:var(--cream);}
+.stylists .eyebrow{color:var(--butter);}
+.stylists .eyebrow::before{background:var(--butter);}
+.stylists .sec-head h2{color:var(--cream);}
+.stylists .sec-head h2 em{color:var(--butter);}
+.stylists .sec-head .lead{color:rgba(247,240,231,.7);}
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.member{position:relative;}
+.member-photo{
+  border-radius:18px;overflow:hidden;aspect-ratio:4/5;margin-bottom:18px;position:relative;
+  background:#3a261a;
+}
+.member-photo img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease),filter .9s var(--ease);filter:saturate(.9);}
+.member:hover .member-photo img{transform:scale(1.05);filter:saturate(1.05);}
+.member-photo .spec{
+  position:absolute;bottom:0;left:0;right:0;padding:16px;
+  background:linear-gradient(to top,rgba(36,23,16,.85),transparent);
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--butter);
+  transform:translateY(100%);opacity:0;transition:transform .5s var(--ease),opacity .5s var(--ease);
+}
+.member:hover .spec{transform:none;opacity:1;}
+.member h3{font-family:var(--serif);font-size:1.7rem;font-weight:400;line-height:1;}
+.member .role{font-size:.82rem;color:var(--butter);font-weight:600;letter-spacing:.04em;margin:4px 0 8px;}
+.member p{font-size:.9rem;color:rgba(247,240,231,.65);line-height:1.55;}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:center;}
+.about-visual{position:relative;}
+.about-visual .ph{border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:var(--shadow);}
+.about-visual .ph img{width:100%;height:100%;object-fit:cover;}
+.about-visual .badge{
+  position:absolute;bottom:-26px;right:-12px;background:var(--cherry);color:var(--cream);
+  border-radius:50%;width:128px;height:128px;display:grid;place-items:center;text-align:center;
+  font-family:var(--serif);line-height:1;box-shadow:var(--shadow);animation:spin 26s linear infinite;
+}
+.about-visual .badge span{font-size:.62rem;font-family:var(--sans);font-weight:600;letter-spacing:.18em;text-transform:uppercase;}
+.about-visual .badge b{font-size:2.6rem;display:block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.about-copy h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,4.6vw,3.8rem);line-height:1.02;margin:.3em 0 .5em;}
+.about-copy h2 em{font-style:italic;color:var(--cherry);}
+.about-copy p{color:var(--mocha);margin-bottom:1.1em;max-width:46ch;}
+.stats{display:flex;flex-wrap:wrap;gap:34px;margin-top:2.2em;}
+.stat .num{font-family:var(--serif);font-size:clamp(2.6rem,5vw,3.6rem);line-height:1;color:var(--espresso);}
+.stat .num .suf{color:var(--cherry);}
+.stat .lab{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mocha-soft);margin-top:6px;}
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.reviews{background:var(--oat);}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.review{
+  background:var(--cream);border:1px solid var(--line-soft);border-radius:22px;padding:34px;
+  display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease);
+}
+.review:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
+.review .stars{color:var(--cherry);letter-spacing:2px;margin-bottom:18px;}
+.review q{font-family:var(--serif);font-size:1.5rem;line-height:1.3;quotes:none;display:block;margin-bottom:24px;}
+.review .who{display:flex;align-items:center;gap:14px;margin-top:auto;}
+.review .who img{width:46px;height:46px;border-radius:50%;object-fit:cover;}
+.review .who b{font-size:.95rem;font-weight:700;}
+.review .who span{font-size:.8rem;color:var(--mocha-soft);}
+
+/* ============================================================
+   CTA
+   ============================================================ */
+.cta{background:var(--cherry);color:var(--cream);text-align:center;overflow:hidden;position:relative;}
+.cta::before{
+  content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background:
+    radial-gradient(40% 60% at 18% 20%, rgba(241,208,138,.5), transparent 70%),
+    radial-gradient(40% 60% at 84% 84%, rgba(158,42,32,.7), transparent 70%);
+}
+.cta-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;}
+.cta .eyebrow{color:var(--butter);}
+.cta .eyebrow::before{background:var(--butter);}
+.cta h2{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,8vw,6rem);line-height:.96;margin:.25em 0 .45em;}
+.cta h2 em{font-style:italic;color:var(--butter);}
+.cta-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:2.6em;}
+.cta-meta{display:flex;gap:38px;justify-content:center;flex-wrap:wrap;font-size:.92rem;}
+.cta-meta a{display:inline-flex;align-items:center;gap:8px;border-bottom:1px solid rgba(247,240,231,.4);padding-bottom:3px;transition:border-color .3s;}
+.cta-meta a:hover{border-color:var(--cream);}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{background:var(--espresso);color:var(--cream);padding:clamp(60px,9vw,100px) 0 40px;}
+.foot-top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;padding-bottom:54px;border-bottom:1px solid rgba(247,240,231,.12);}
+.foot-brand .logo{font-size:2.2rem;color:var(--cream);margin-bottom:16px;}
+.foot-brand p{color:rgba(247,240,231,.6);max-width:34ch;font-size:.95rem;}
+.foot-col h4{font-size:.74rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--butter);margin-bottom:18px;}
+.foot-col a,.foot-col p{display:block;color:rgba(247,240,231,.7);font-size:.92rem;margin-bottom:10px;transition:color .3s;}
+.foot-col a:hover{color:var(--cream);}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding-top:28px;font-size:.82rem;color:rgba(247,240,231,.5);}
+.foot-legal{display:inline-flex;gap:22px;}
+.foot-bot a{transition:color .3s;}
+.foot-bot a:hover{color:var(--cream);}
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+.to-top{
+  position:fixed;bottom:24px;left:24px;z-index:94;
+  width:48px;height:48px;border-radius:50%;border:1px solid var(--line);cursor:pointer;
+  background:rgba(247,240,231,.82);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  color:var(--espresso);display:grid;place-items:center;
+  opacity:0;visibility:hidden;transform:translateY(12px);
+  box-shadow:0 12px 28px -14px rgba(36,23,16,.45);
+  transition:opacity .4s var(--ease),transform .4s var(--ease),visibility .4s,background .3s,color .3s,border-color .3s;
+}
+.to-top.show{opacity:1;visibility:visible;transform:none;}
+.to-top:hover{background:var(--cherry);color:var(--cream);border-color:var(--cherry);transform:translateY(-3px);}
+.to-top svg{width:20px;height:20px;}
+
+/* ============================================================
+   RECEPTION CHAT WIDGET
+   ============================================================ */
+.chat-launch{
+  position:fixed;bottom:24px;right:24px;z-index:95;
+  width:62px;height:62px;border-radius:50%;border:0;cursor:pointer;
+  background:var(--cherry);color:var(--cream);display:grid;place-items:center;
+  box-shadow:0 16px 34px -10px rgba(192,57,43,.7);
+  transition:transform .4s var(--ease),background .4s var(--ease);
+}
+.chat-launch:hover{transform:translateY(-3px) scale(1.05);background:var(--cherry-deep);}
+.chat-launch svg{width:27px;height:27px;}
+.chat-launch .chat-badge{
+  position:absolute;top:-2px;right:-2px;min-width:20px;height:20px;border-radius:50%;
+  background:var(--espresso);color:var(--cream);font-size:.66rem;font-weight:700;
+  display:grid;place-items:center;border:2px solid var(--cream);padding:0 4px;
+}
+.chat-launch::after{
+  content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--cherry);
+  animation:chatPulse 2.8s ease-out infinite;pointer-events:none;
+}
+@keyframes chatPulse{0%{transform:scale(1);opacity:.55;}100%{transform:scale(1.7);opacity:0;}}
+.chat-launch.open .chat-badge,.chat-launch.open::after{display:none;}
+
+.chat-panel{
+  position:fixed;bottom:100px;right:24px;z-index:96;
+  width:372px;max-width:calc(100vw - 32px);
+  background:var(--cream);border:1px solid var(--line-soft);border-radius:22px;overflow:hidden;
+  box-shadow:0 32px 72px -22px rgba(36,23,16,.55);
+  transform:translateY(18px) scale(.96);transform-origin:bottom right;
+  opacity:0;visibility:hidden;
+  transition:transform .42s var(--ease),opacity .42s var(--ease),visibility .42s;
+}
+.chat-panel.open{transform:none;opacity:1;visibility:visible;}
+.chat-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;
+  background:linear-gradient(135deg,var(--cherry),var(--cherry-deep));color:var(--cream);
+}
+.chat-ident{display:flex;align-items:center;gap:12px;}
+.chat-ava{
+  width:44px;height:44px;border-radius:50%;background:var(--butter);color:var(--espresso);
+  font-family:var(--serif);font-size:1.5rem;display:grid;place-items:center;flex-shrink:0;
+}
+.chat-ident b{display:block;font-size:1rem;font-weight:700;line-height:1.15;}
+.chat-status{font-size:.74rem;opacity:.92;display:flex;align-items:center;gap:6px;}
+.chat-status i{width:8px;height:8px;border-radius:50%;background:#7CD992;display:inline-block;animation:dotPulse 2s infinite;}
+@keyframes dotPulse{0%{box-shadow:0 0 0 0 rgba(124,217,146,.6);}70%{box-shadow:0 0 0 7px rgba(124,217,146,0);}100%{box-shadow:0 0 0 0 rgba(124,217,146,0);}}
+.chat-close{background:rgba(247,240,231,.18);border:0;color:var(--cream);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.85rem;transition:background .3s;flex-shrink:0;}
+.chat-close:hover{background:rgba(247,240,231,.34);}
+
+.chat-body{padding:18px;max-height:330px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;}
+.msg{max-width:84%;padding:11px 15px;border-radius:16px;font-size:.9rem;line-height:1.45;animation:msgIn .35s var(--ease);}
+.msg.bot{align-self:flex-start;background:var(--oat);color:var(--espresso);border-bottom-left-radius:5px;}
+.msg.user{align-self:flex-end;background:var(--cherry);color:var(--cream);border-bottom-right-radius:5px;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.chat-quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px;}
+.chat-quick button{
+  background:transparent;border:1px solid var(--line);color:var(--espresso);
+  font-family:var(--sans);font-size:.82rem;font-weight:600;padding:8px 13px;border-radius:100px;cursor:pointer;
+  transition:background .3s,border-color .3s,color .3s,transform .3s;
+}
+.chat-quick button:hover{background:var(--cherry);border-color:var(--cherry);color:var(--cream);transform:translateY(-2px);}
+
+.chat-foot{padding:14px 16px 16px;border-top:1px solid var(--line-soft);}
+.chat-foot-label{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mocha-soft);margin-bottom:9px;}
+.chat-form{display:flex;gap:8px;}
+.chat-form input{
+  flex:1;min-width:0;border:1px solid var(--line);border-radius:100px;padding:11px 16px;
+  font-family:var(--sans);font-size:.88rem;background:#fff;color:var(--espresso);outline:none;transition:border-color .3s;
+}
+.chat-form input:focus{border-color:var(--cherry);}
+.chat-form button{
+  width:42px;height:42px;flex-shrink:0;border:0;border-radius:50%;background:var(--cherry);color:var(--cream);
+  font-size:1.15rem;cursor:pointer;transition:background .3s,transform .3s;
+}
+.chat-form button:hover{background:var(--cherry-deep);transform:scale(1.06);}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:980px){
+  .nav-links{display:none;}
+  .burger{display:flex;}
+  .nav-cta .btn{display:none;}
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-visual{max-width:440px;margin:10px auto 0;width:100%;}
+  .team{grid-template-columns:repeat(2,1fr);}
+  .about-grid{grid-template-columns:1fr;}
+  .about-visual{max-width:440px;}
+  .review-grid{grid-template-columns:1fr;}
+  .foot-top{grid-template-columns:1fr 1fr;}
+  .gallery{grid-auto-rows:160px;}
+}
+@media(max-width:620px){
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;}
+  .g1,.g2,.g3,.g4,.g5,.g6{grid-column:span 1;grid-row:span 1;}
+  .g1,.g5{grid-row:span 2;}
+  .srv{grid-template-columns:1fr;gap:8px;padding:24px 0;}
+  .srv .n{display:none;}
+  .srv .p{text-align:left;}.srv .p small{text-align:left;}
+  .foot-top{grid-template-columns:1fr;gap:32px;}
+  .stat{flex:1 0 40%;}
+  .mobile-menu a{font-size:2.1rem;}
+  .hero-info{row-gap:18px;}
+  .hero-info .hi{flex:0 0 50%;padding:0;border-right:0;}
+  .chat-panel{bottom:92px;right:16px;}
+  .chat-launch{bottom:18px;right:18px;}
+  .to-top{bottom:18px;left:18px;width:44px;height:44px;}
+}
+
+/* Reduced motion ------------------------------------------- */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important;}
+  .reveal,.reveal-clip,.hero-visual{opacity:1;transform:none;clip-path:none;transition:none;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="logo">Bloom &amp; Co<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="#work">Bloom</a>
+      <a href="#services">Services</a>
+      <a href="#stylists">Stylists</a>
+      <a href="#about">About</a>
+      <a href="#reviews">Reviews</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#book" class="btn btn-cherry">Book now <span class="arr">→</span></a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= MOBILE MENU ================= -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#work">Bloom</a>
+  <a href="#services">Services</a>
+  <a href="#stylists">Stylists</a>
+  <a href="#about">About</a>
+  <a href="#reviews">Reviews</a>
+  <div class="mm-foot">
+    Book your seat → <a href="#book">hello@bloomandco.studio</a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="bloom"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow reveal" style="--i:0">You deserve to feel beautiful</span>
+      <h1 class="reveal" style="--i:1">Where good hair<br>comes into <em>bloom</em>.</h1>
+      <p class="hero-sub reveal" style="--i:2">A hair studio for cuts, color &amp; confidence — thoughtful styling that grows with you, not against you.</p>
+      <div class="hero-actions reveal" style="--i:3">
+        <a href="#book" class="btn btn-cherry">Book your seat <span class="arr">→</span></a>
+        <a href="#work" class="btn btn-ghost">See the looks</a>
+      </div>
+      <div class="hero-rating reveal" style="--i:4">
+        <span class="stars">★★★★★</span>
+        <span><strong>4.9</strong> rating · loved by 500+ clients · est. 2019</span>
+      </div>
+      <ul class="hero-info reveal" style="--i:5">
+        <li class="hi"><span class="k">Visit</span><span class="v">114 Magnolia Ln</span></li>
+        <li class="hi"><span class="k">Hours</span><span class="v">Tue–Sat · 9am–7pm</span></li>
+        <li class="hi"><span class="k">Call</span><span class="v">(555) 123-4567</span></li>
+        <li class="hi"><span class="k">Walk-ins</span><span class="v">Available</span></li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=900&amp;q=80&amp;auto=format&amp;fit=crop" alt="Client with a fresh, sophisticated look at Bloom &amp; Co" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= LOOKBOOK ================= -->
+<section class="pad lookbook" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow reveal">Bloom to a New You</span>
+        <h2 class="reveal" style="--i:1">Looks we’ve <em>loved</em> making.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">A peek at recent transformations — from lived-in color to sharp, structured cuts. Hover any look to see the style.</p>
+    </div>
+    <div class="gallery">
+      <figure class="shot g1 reveal" style="--i:0">
+        <span class="tag">Color</span>
+        <img src="https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Soft lilac toned waves" loading="lazy" />
+        <figcaption class="shot-cap"><div class="cat">Color</div><div class="nm">Lilac Gloss</div></figcaption>
+      </figure>
+      <figure class="shot g2 reveal" style="--i:1">
+        <span class="tag">Style</span>
+        <img src="https://images.unsplash.com/photo-1523264939339-c89f9dadde2e?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Long lived-in waves" loading="lazy" />
+        <figcaption class="shot-cap"><div class="cat">Style</div><div class="nm">Lived-in Waves</div></figcaption>
+      </figure>
+      <figure class="shot g3 reveal" style="--i:2">
+        <span class="tag">Gloss</span>
+        <img src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Sunlit blonde curls" loading="lazy" />
+        <figcaption class="shot-cap"><div class="cat">Gloss</div><div class="nm">Sunlit Curls</div></figcaption>
+      </figure>
+      <figure class="shot g4 reveal" style="--i:1">
+        <span class="tag">Texture</span>
+        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=700&amp;q=80&amp;auto=format&amp;fit=crop" alt="Natural curl definition" loading="lazy" />
+        <figcaption class="shot-cap"><div class="cat">Texture</div><div class="nm">Natural Volume</div></figcaption>
+      </figure>
+      <figure class="shot g5 reveal" style="--i:2">
+        <span class="tag">Cuts</span>
+        <img src="https://images.unsplash.com/photo-1576828831022-ca41d3905fb7?w=800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Tousled textured bob" loading="lazy" />
+        <figcaption class="shot-cap"><div class="cat">Cuts</div><div class="nm">Textured Bob</div></figcaption>
+      </figure>
+      <figure class="shot g6 reveal" style="--i:3">
+        <span class="tag">Bridal</span>
+        <img src="https://images.unsplash.com/photo-1582095133179-bfd08e2fc6b3?w=800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Bridal updo being styled" loading="lazy" />
+        <figcaption class="shot-cap"><div class="cat">Bridal</div><div class="nm">Romance Updo</div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="pad" id="services">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="section-num reveal">02 — Services</span>
+        <h2 class="reveal" style="--i:1">What we <em>do</em> best.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">Every appointment starts with a real consultation. No pressure, no upsell — just a plan for hair you’ll actually love.</p>
+    </div>
+    <div class="services-list">
+      <div class="srv reveal" style="--i:0">
+        <div class="n">01</div>
+        <div class="t">Cut &amp; Style</div>
+        <div class="d">A precision cut shaped to your face, hair type &amp; how you actually style it at home.</div>
+        <div class="p">$65<small>from</small></div>
+      </div>
+      <div class="srv reveal" style="--i:1">
+        <div class="n">02</div>
+        <div class="t">Color &amp; Balayage</div>
+        <div class="d">Lived-in dimension, full color or hand-painted balayage built to grow out beautifully.</div>
+        <div class="p">$140<small>from</small></div>
+      </div>
+      <div class="srv reveal" style="--i:2">
+        <div class="n">03</div>
+        <div class="t">Gloss &amp; Treatments</div>
+        <div class="d">Bond-building, shine glosses &amp; repair treatments for healthy, mirror-finish hair.</div>
+        <div class="p">$55<small>from</small></div>
+      </div>
+      <div class="srv reveal" style="--i:3">
+        <div class="n">04</div>
+        <div class="t">Extensions</div>
+        <div class="d">Seamless length &amp; volume with hand-tied wefts, color-matched to your tone.</div>
+        <div class="p">$320<small>from</small></div>
+      </div>
+      <div class="srv reveal" style="--i:4">
+        <div class="n">05</div>
+        <div class="t">Bridal &amp; Events</div>
+        <div class="d">Trial run included. Styling for the wedding party, on-site or in-studio.</div>
+        <div class="p">$180<small>from</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STYLISTS ================= -->
+<section class="pad stylists" id="stylists">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="section-num reveal" style="color:var(--butter)">03 — The Team</span>
+        <h2 class="reveal" style="--i:1">The hands behind<br>the <em>magic</em>.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">A small, obsessive crew of stylists — each with their own specialty, all sharing one standard: yours.</p>
+    </div>
+    <div class="team">
+      <article class="member reveal" style="--i:0">
+        <div class="member-photo">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&amp;q=80&amp;auto=format&amp;fit=crop" alt="Maya Quinn, Color Director" loading="lazy" />
+          <div class="spec">Balayage · Vivids · Color correction</div>
+        </div>
+        <h3>Maya Quinn</h3>
+        <div class="role">Color Director</div>
+        <p>Twelve years chasing the perfect lived-in blonde. Lives for a dramatic before &amp; after.</p>
+      </article>
+      <article class="member reveal" style="--i:1">
+        <div class="member-photo">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&amp;q=80&amp;auto=format&amp;fit=crop" alt="Iris Vale, Senior Stylist" loading="lazy" />
+          <div class="spec">Precision cuts · Bobs · Curtain bangs</div>
+        </div>
+        <h3>Iris Vale</h3>
+        <div class="role">Senior Stylist</div>
+        <p>Cut-obsessed. Believes the right shape does more than any product ever could.</p>
+      </article>
+      <article class="member reveal" style="--i:2">
+        <div class="member-photo">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&amp;q=80&amp;auto=format&amp;fit=crop" alt="Simone Lee, Texture Specialist" loading="lazy" />
+          <div class="spec">Curls · Coils · Texture care</div>
+        </div>
+        <h3>Simone Lee</h3>
+        <div class="role">Texture Specialist</div>
+        <p>Curl whisperer. Trained in cutting texture dry, the way it actually lives.</p>
+      </article>
+      <article class="member reveal" style="--i:3">
+        <div class="member-photo">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&amp;q=80&amp;auto=format&amp;fit=crop" alt="Noa Bennett, Bridal Lead" loading="lazy" />
+          <div class="spec">Updos · Bridal · Event styling</div>
+        </div>
+        <h3>Noa Bennett</h3>
+        <div class="role">Bridal Lead</div>
+        <p>Calm under pressure, magic with pins. Has styled 200+ wedding mornings.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="pad" id="about">
+  <div class="wrap about-grid">
+    <div class="about-visual reveal-clip">
+      <div class="ph">
+        <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=800&amp;q=80&amp;auto=format&amp;fit=crop" alt="Inside the Bloom &amp; Co studio" loading="lazy" />
+      </div>
+      <div class="badge"><div><b>5</b><span>years of growth</span></div></div>
+    </div>
+    <div class="about-copy">
+      <span class="eyebrow reveal">04 — Our Story</span>
+      <h2 class="reveal" style="--i:1">A studio built on <em>good</em> hair days.</h2>
+      <p class="reveal" style="--i:2">Bloom &amp; Co started in 2019 with one chair, one mirror and a simple idea: hair should feel like you on your best day. No cookie-cutter trends pushed on everyone — just styling that suits your life.</p>
+      <p class="reveal" style="--i:3">Today we’re a tight crew in a sun-lit downtown studio, using bond-building, low-tox color and cuts designed to grow out gracefully. Come as you are, leave in full bloom.</p>
+      <div class="stats">
+        <div class="stat reveal" style="--i:4"><div class="num" data-count="5"><span class="val">0</span><span class="suf">yr</span></div><div class="lab">In bloom</div></div>
+        <div class="stat reveal" style="--i:5"><div class="num" data-count="12"><span class="val">0</span><span class="suf">k</span></div><div class="lab">Heads styled</div></div>
+        <div class="stat reveal" style="--i:6"><div class="num" data-count="4"><span class="val">0</span><span class="suf">.9</span></div><div class="lab">Avg rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="pad reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="section-num reveal">05 — Reviews</span>
+        <h2 class="reveal" style="--i:1">Loved by the<br>people in our <em>chairs</em>.</h2>
+      </div>
+      <p class="lead reveal" style="--i:2">Real words from real clients. We’re lucky to do hair for the best.</p>
+    </div>
+    <div class="review-grid">
+      <figure class="review reveal" style="--i:0">
+        <div class="stars">★★★★★</div>
+        <q>Maya finally gave me the lived-in blonde I’d been screenshotting for years. Three months later it still looks fresh.</q>
+        <div class="who">
+          <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=120&amp;q=80&amp;auto=format&amp;fit=crop" alt="Avery T." loading="lazy" />
+          <div><b>Avery T.</b><span>Color client</span></div>
+        </div>
+      </figure>
+      <figure class="review reveal" style="--i:1">
+        <div class="stars">★★★★★</div>
+        <q>First salon that actually knew how to cut my curls dry. I haven’t straightened my hair since — that says everything.</q>
+        <div class="who">
+          <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=120&amp;q=80&amp;auto=format&amp;fit=crop" alt="Priya S." loading="lazy" />
+          <div><b>Priya S.</b><span>Texture client</span></div>
+        </div>
+      </figure>
+      <figure class="review reveal" style="--i:2">
+        <div class="stars">★★★★★</div>
+        <q>They did my whole bridal party and stayed calm through all the chaos. Every single one of us cried (good tears).</q>
+        <div class="who">
+          <img src="https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=120&amp;q=80&amp;auto=format&amp;fit=crop" alt="Jordan M." loading="lazy" />
+          <div><b>Jordan M.</b><span>Bridal client</span></div>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="pad cta" id="book">
+  <div class="wrap cta-inner">
+    <span class="eyebrow reveal">Your chair is waiting</span>
+    <h2 class="reveal" style="--i:1">Ready to <em>bloom</em>?</h2>
+    <div class="cta-actions reveal" style="--i:2">
+      <a href="#book" class="btn btn-cream">Book your seat <span class="arr">→</span></a>
+      <a href="tel:+15551234567" class="btn btn-ghost" style="color:var(--cream);border-color:rgba(247,240,231,.5)">Call the studio</a>
+    </div>
+    <div class="cta-meta reveal" style="--i:3">
+      <a href="tel:+15551234567">☎ (555) 123-4567</a>
+      <a href="mailto:hello@bloomandco.studio">✉ hello@bloomandco.studio</a>
+      <span>Tue–Sat · 9am–7pm</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="logo">Bloom &amp; Co<span class="dot" style="color:var(--cherry)">.</span></div>
+        <p>A modern hair studio for cuts, color &amp; confidence. Come as you are, leave in full bloom.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="#work">Clients</a>
+        <a href="#services">Services</a>
+        <a href="#stylists">Stylists</a>
+        <a href="#reviews">Reviews</a>
+      </div>
+      <div class="foot-col">
+        <h4>Visit</h4>
+        <p>114 Magnolia Lane<br>Downtown Studio<br>Open Tue–Sat</p>
+      </div>
+      <div class="foot-col">
+        <h4>Follow</h4>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Pinterest</a>
+        <a href="mailto:hello@bloomandco.studio">Email us</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 Bloom &amp; Co. All rights reserved.</span>
+      <span class="foot-legal"><a href="#">Privacy Policy</a><a href="#">Terms &amp; Conditions</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= BACK TO TOP ================= -->
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
+<!-- ================= RECEPTION CHAT ================= -->
+<button class="chat-launch" id="chatLaunch" aria-label="Chat with reception" aria-expanded="false">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/>
+  </svg>
+  <span class="chat-badge">1</span>
+</button>
+
+<div class="chat-panel" id="chatPanel" role="dialog" aria-label="Bloom &amp; Co reception">
+  <div class="chat-head">
+    <div class="chat-ident">
+      <span class="chat-ava">B</span>
+      <div>
+        <b>Bloom &amp; Co</b>
+        <span class="chat-status"><i></i> Posie · Reception · Online</span>
+      </div>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg bot">Hi lovely! 🌸 Welcome to Bloom &amp; Co — I’m Posie at reception. How can I help you feel your most beautiful today?</div>
+    <div class="chat-quick" id="chatQuick">
+      <button type="button" data-reply="book">Book an appointment</button>
+      <button type="button" data-reply="services">Services &amp; prices</button>
+      <button type="button" data-reply="hours">Hours &amp; location</button>
+    </div>
+  </div>
+  <div class="chat-foot">
+    <div class="chat-foot-label">Prefer email? Send us an inquiry</div>
+    <form class="chat-form" id="chatForm">
+      <input type="text" id="chatMsg" placeholder="Type your message…" autocomplete="off" aria-label="Your message" />
+      <button type="submit" aria-label="Send message">→</button>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---- Sticky nav + back-to-top visibility ---- */
+  var nav = document.getElementById('nav');
+  var toTop = document.getElementById('toTop');
+  var onScroll = function(){
+    var y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 24);
+    if(toTop){ toTop.classList.toggle('show', y > 640); }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---- Back to top ---- */
+  if(toTop){
+    toTop.addEventListener('click', function(){
+      var rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({top:0, behavior: rm ? 'auto' : 'smooth'});
+    });
+  }
+
+  /* ---- Mobile menu ---- */
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+  var toggle = function(force){
+    var open = force !== undefined ? force : !menu.classList.contains('open');
+    menu.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    nav.classList.toggle('menu-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  burger.addEventListener('click', function(){ toggle(); });
+  menu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ toggle(false); });
+  });
+
+  /* ---- Scroll reveal (one at a time, with fail-safe sweep) ---- */
+  var reveals = [].slice.call(document.querySelectorAll('.reveal, .reveal-clip'));
+  var show = function(el){ el.classList.add('in'); };
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ show(e.target); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -6% 0px'});
+    reveals.forEach(function(el){ io.observe(el); });
+
+    /* Safety net: never leave content hidden on fast scroll or restored
+       scroll position — reveal anything that has reached the viewport. */
+    var ticking = false;
+    var sweep = function(){
+      ticking = false;
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for(var i=0;i<reveals.length;i++){
+        var el = reveals[i];
+        if(!el.classList.contains('in') && el.getBoundingClientRect().top < vh * 0.92){
+          show(el); io.unobserve(el);
+        }
+      }
+    };
+    var onScrollSweep = function(){ if(!ticking){ ticking = true; requestAnimationFrame(sweep); } };
+    window.addEventListener('scroll', onScrollSweep, {passive:true});
+    window.addEventListener('load', sweep);
+  } else {
+    reveals.forEach(show);
+  }
+
+  /* ---- Stat count-up ---- */
+  var counted = false;
+  var stats = document.querySelectorAll('.num[data-count]');
+  var runCount = function(){
+    if(counted) return; counted = true;
+    stats.forEach(function(el){
+      var target = parseFloat(el.getAttribute('data-count'));
+      var valEl = el.querySelector('.val');
+      var start = null, dur = 1400;
+      var step = function(ts){
+        if(!start) start = ts;
+        var p = Math.min((ts - start)/dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        valEl.textContent = Math.round(target * eased);
+        if(p < 1) requestAnimationFrame(step);
+        else valEl.textContent = target;
+      };
+      requestAnimationFrame(step);
+    });
+  };
+  var aboutSec = document.getElementById('about');
+  if(aboutSec && 'IntersectionObserver' in window){
+    var io2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ runCount(); io2.disconnect(); } });
+    }, {threshold:0.3});
+    io2.observe(aboutSec);
+  } else { runCount(); }
+
+  /* ---- Reception chat widget ---- */
+  var cl = document.getElementById('chatLaunch');
+  var cp = document.getElementById('chatPanel');
+  if(cl && cp){
+    var cBody = document.getElementById('chatBody');
+    var cForm = document.getElementById('chatForm');
+    var cInput = document.getElementById('chatMsg');
+    var cClose = document.getElementById('chatClose');
+
+    var openChat = function(force){
+      var open = force !== undefined ? force : !cp.classList.contains('open');
+      cp.classList.toggle('open', open);
+      cl.classList.toggle('open', open);
+      cl.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(open){ setTimeout(function(){ if(cInput) cInput.focus(); }, 320); }
+    };
+    cl.addEventListener('click', function(){ openChat(); });
+    cClose.addEventListener('click', function(){ openChat(false); });
+
+    var addMsg = function(text, who){
+      var d = document.createElement('div');
+      d.className = 'msg ' + who;
+      d.textContent = text;
+      cBody.appendChild(d);
+      cBody.scrollTop = cBody.scrollHeight;
+    };
+
+    var replies = {
+      book: "Wonderful! Tap “Book your seat” at the top to grab a slot online any time, or tell me your preferred day & stylist and I’ll pass it along. 🌷",
+      services: "Here’s a quick peek — Cut & Style from $65, Color & Balayage from $140, Gloss & Treatments from $55, Extensions from $320, and Bridal from $180. Want details on any of these?",
+      hours: "We’re at 114 Magnolia Lane, downtown — open Tue–Sat, 9am–7pm. Walk-ins are welcome, though booking ahead is the best way to get your favourite stylist!"
+    };
+    var quick = document.getElementById('chatQuick');
+    if(quick){
+      quick.addEventListener('click', function(e){
+        var btn = e.target.closest('button[data-reply]');
+        if(!btn) return;
+        addMsg(btn.textContent.trim(), 'user');
+        var key = btn.getAttribute('data-reply');
+        setTimeout(function(){ addMsg(replies[key] || "Of course — how can I help?", 'bot'); }, 480);
+      });
+    }
+    cForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var v = (cInput.value || '').trim();
+      if(!v) return;
+      addMsg(v, 'user');
+      cInput.value = '';
+      setTimeout(function(){
+        addMsg("Thank you, lovely! 💌 I’m opening your email so you can send this straight to our team — we usually reply within a few hours.", 'bot');
+        var subject = encodeURIComponent('Inquiry from the Bloom & Co website');
+        var body = encodeURIComponent(v);
+        window.location.href = 'mailto:hello@bloomandco.studio?subject=' + subject + '&body=' + body;
+      }, 500);
+    });
+  }
+})();
+</script>
+</body>
+</html>
